@@ -11,11 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { types } from "../../../redux/types";
 import ColorBadge from "../../../components/common/colorBadge";
+import LoadingScreen from "../../../components/common/loading";
 
 const { width } = Dimensions.get("screen");
 
 const DetailScreen = ({ route }) => {
-  const { currentProduct, loading } = useSelector((state) => state.products);
+  const { currentProduct } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
 
@@ -30,13 +31,7 @@ const DetailScreen = ({ route }) => {
     };
   }, []);
 
-  console.log(currentProduct, "currentProduct");
-  if (!currentProduct)
-    return (
-      <View>
-        <Text>Loading</Text>
-      </View>
-    );
+  if (!currentProduct) return <LoadingScreen />;
 
   const {
     brand,
@@ -69,7 +64,7 @@ const DetailScreen = ({ route }) => {
           <Text style={s.label}>Category: </Text>
           <Text>{brand}</Text>
         </View>
-        <View style={s.rowDesc}>
+        <View style={[s.rowDesc, s.rowColors]}>
           <Text style={s.label}>Available colors: </Text>
           <View style={s.colorsList}>
             {rgbColors.map((el, i) => (
@@ -119,6 +114,9 @@ const s = StyleSheet.create({
   rowDesc: {
     flexDirection: "row",
     paddingVertical: 8,
+  },
+  rowColors: {
+    alignItems: "center",
   },
   label: {
     fontWeight: "700",

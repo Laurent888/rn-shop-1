@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import { StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { types } from "../../../redux/types";
@@ -7,6 +7,7 @@ import { types } from "../../../redux/types";
 import Header from "../../../components/home/header";
 import Featured from "../../../components/home/featured";
 import Deals from "../../../components/home/deals";
+import LoadingScreen from "../../../components/common/loading";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -29,19 +30,7 @@ const HomeScreen = () => {
       </SafeAreaView>
     );
   } else {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: 24,
-            fontWeight: "600",
-          }}
-        >
-          Loading...
-        </Text>
-      </View>
-    );
+    return <LoadingScreen />;
   }
 };
 

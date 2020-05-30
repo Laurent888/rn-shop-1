@@ -13,6 +13,6 @@ web-report/
 # macOS
 .DS_Store
 
-.apiaddress
+apiaddress.js
 
 data/

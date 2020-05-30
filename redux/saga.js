@@ -1,52 +1,19 @@
 import { takeEvery, all, put, call } from "redux-saga/effects";
-import dataMen from "../data/data-men.json";
-import dataWomen from "../data/data-women.json";
 import { types } from "./types";
+
+import {
+  fetchWomenPromise,
+  fetchMenPromise,
+  fetchSingleProduct,
+} from "../utils/mockFetchData";
 
 async function getData() {
   console.log("FROM GET DATA");
+
   try {
-    /******** REQUEST TO THE REAL API ********/
-    // const resMenShoes = await axios({
-    //   method: "GET",
-    //   url: "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list",
-    //   headers: {
-    //     "content-type": "application/octet-stream",
-    //     "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
-    //     "x-rapidapi-key": "e3de8ed666mshce5c85c7dfd84e8p13756djsn0d162ac5ee88",
-    //     useQueryString: true,
-    //   },
-    //   params: {
-    //     categories: "men_shoes",
-    //     sortBy: "stock",
-    //     country: "us",
-    //     lang: "en",
-    //     currentpage: "0",
-    //     pagesize: "30",
-    //   },
-    // });
-    // const resWomenShoes = await axios({
-    //   method: "GET",
-    //   url: "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list",
-    //   headers: {
-    //     "content-type": "application/octet-stream",
-    //     "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
-    //     "x-rapidapi-key": "e3de8ed666mshce5c85c7dfd84e8p13756djsn0d162ac5ee88",
-    //     useQueryString: true,
-    //   },
-    //   params: {
-    //     categories: "ladies_shoes",
-    //     sortBy: "stock",
-    //     country: "us",
-    //     lang: "en",
-    //     currentpage: "0",
-    //     pagesize: "30",
-    //   },
-    // });
+    const resMenShoes = await fetchMenPromise;
 
-    const resMenShoes = dataMen.results;
-
-    const menShoes = await resMenShoes.map((s, i) => {
+    const menShoes = await resMenShoes.results.map((s, i) => {
       return {
         id: s.code,
         name: s.name,
@@ -56,9 +23,8 @@ async function getData() {
       };
     });
 
-    console.log(menShoes);
-    const resWomenShoes = dataWomen.results;
-    const womenShoes = await resWomenShoes.map((s, i) => {
+    const resWomenShoes = await fetchWomenPromise;
+    const womenShoes = await resWomenShoes.results.map((s, i) => {
       return {
         id: s.code,
         name: s.name,
@@ -81,6 +47,11 @@ async function getData() {
   }
 }
 
+async function getSingleProdData(id) {
+  const data = await fetchSingleProduct(id);
+  return data;
+}
+
 function* getProductsAsync() {
   const res = yield call(getData);
 
@@ -93,6 +64,30 @@ function* getProducts() {
   yield takeEvery(types.GET_PRODUCT_START, getProductsAsync);
 }
 
+function* getSingleProductAsync(action) {
+  yield console.log("FROM GET SINGLE PROD BEFORE CALL DATA");
+  const id = action.payload;
+
+  const s = yield call(getSingleProdData, id);
+
+  const shortData = {
+    id: s.code,
+    name: s.name,
+    price: s.price.value,
+    image: s.images[0].url,
+    brand: s.categoryName,
+    articleColorNames: s.articleColorNames,
+    rgbColors: s.rgbColors,
+    sellingAttributes: s.sellingAttributes ? s.sellingAttributes : null,
+  };
+
+  yield put({ type: types.GET_SINGLE_PRODUCT_SUCCESS, payload: shortData });
+}
+
+function* getSingleProduct() {
+  yield takeEvery(types.GET_SINGLE_PRODUCT_START, getSingleProductAsync);
+}
+
 export function* rootSaga() {
-  yield all([getProducts()]);
+  yield all([getProducts(), getSingleProduct()]);
 }

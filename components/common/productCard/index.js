@@ -11,11 +11,15 @@ const ProductCard = (props) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate("detailScreen", { id: props.id });
+    navigation.navigate("detailScreen", { id: props.id, name });
   };
 
   return (
-    <TouchableOpacity style={s.container} onPress={handlePress}>
+    <TouchableOpacity
+      style={s.container}
+      onPress={handlePress}
+      activeOpacity={0.8}
+    >
       <View style={s.imageContainer}>
         <Image
           source={{ uri: image }}
@@ -28,9 +32,7 @@ const ProductCard = (props) => {
 
       <View style={s.cardDetails}>
         <View>
-          <Text
-            style={{ paddingVertical: 10, fontSize: 16, fontWeight: "600" }}
-          >
+          <Text style={{ paddingVertical: 7, fontSize: 16, fontWeight: "600" }}>
             {price} $
           </Text>
         </View>

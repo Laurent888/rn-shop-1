@@ -15,12 +15,15 @@ import LoadingScreen from "../../../components/common/loading";
 
 const { width } = Dimensions.get("screen");
 
-const DetailScreen = ({ route }) => {
+const DetailScreen = ({ route, navigation }) => {
   const { currentProduct } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
-
+  console.log(route.params);
   useEffect(() => {
+    navigation.setOptions({
+      title: route.params.name,
+    });
     dispatch({
       type: types.GET_SINGLE_PRODUCT_START,
       payload: route.params.id,

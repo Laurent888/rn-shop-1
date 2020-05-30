@@ -12,7 +12,7 @@ const Categories = () => {
       <ScrollView>
         <View style={s.list}>
           {categories.categories.map((c, i) => (
-            <CategoryCard key={i} label={c.label} image={c.image} />
+            <CategoryCard key={i} id={c.id} label={c.label} image={c.image} />
           ))}
         </View>
       </ScrollView>
@@ -25,6 +25,7 @@ export default Categories;
 const s = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 30,
   },
   title: {
     fontSize: theme.primaryTitle.fontSize,

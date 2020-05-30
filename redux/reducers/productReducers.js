@@ -12,7 +12,6 @@ const INITIAL_STATE = {
 };
 
 const productReducer = (state = INITIAL_STATE, action) => {
-  console.log(action.type);
   switch (action.type) {
     case types.SET_LOADING_TRUE:
       return {

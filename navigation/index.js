@@ -5,6 +5,7 @@ import HomeScreen from "../views/shop/home/HomeScreen";
 import DetailScreen from "../views/shop/home/DetailScreen";
 import SearchScreen from "../views/shop/search/SearchScreen";
 import ProfileScreen from "../views/shop/profile/ProfileScreen";
+import ListProductsSreen from "../views/shop/search/listProductsScreen";
 
 const Stack = createStackNavigator();
 
@@ -20,8 +21,16 @@ export const HomeStack = () => (
 );
 
 export const SearchStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="searchScreen" component={SearchScreen} />
+  <Stack.Navigator
+    screenOptions={{ headerBackTitleVisible: false, headerTintColor: "#333" }}
+  >
+    <Stack.Screen
+      name="searchScreen"
+      component={SearchScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen name="listProductScreen" component={ListProductsSreen} />
+    <Stack.Screen name="detailScreen" component={DetailScreen} />
   </Stack.Navigator>
 );
 

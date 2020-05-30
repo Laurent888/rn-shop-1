@@ -1,10 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
-const CategoryCard = ({ label, image }) => {
+const CategoryCard = ({ id, label, image }) => {
+  const navigation = useNavigation();
+
+  const navigateToList = () => {
+    navigation.navigate("listProductScreen", { category: id });
+  };
+
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity activeOpacity={0.8} onPress={navigateToList}>
       <View style={s.container}>
         <Image source={{ uri: image }} style={s.image} />
         <View style={s.overlay}></View>

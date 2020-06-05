@@ -6,6 +6,7 @@ import DetailScreen from "../views/shop/home/DetailScreen";
 import SearchScreen from "../views/shop/search/SearchScreen";
 import ProfileScreen from "../views/shop/profile/ProfileScreen";
 import ListProductsSreen from "../views/shop/search/listProductsScreen";
+import LoginPage from "../views/auth/LoginPage";
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,6 @@ export const SearchStack = () => (
 
 export const ProfileStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="profileScreen" component={ProfileScreen} />
+    <Stack.Screen name="profileScreen" component={LoginPage} />
   </Stack.Navigator>
 );

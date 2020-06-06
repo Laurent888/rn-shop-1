@@ -6,8 +6,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
-  Text,
-  TextInput,
 } from "react-native";
 import * as Yup from "yup";
 
@@ -18,10 +16,11 @@ import FormInput from "../../../components/common/FormInput";
 
 const { width } = Dimensions.get("screen");
 
-const LoginPage = ({ navigation }) => {
+const RegisterPage = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const validationSchema = Yup.object().shape({
@@ -29,6 +28,10 @@ const LoginPage = ({ navigation }) => {
     password: Yup.string()
       .min(6, "minimun 6 characters")
       .required("Password is required"),
+    confirmPassword: Yup.string().oneOf(
+      [Yup.ref("password"), null],
+      "Password must match"
+    ),
   });
 
   const handleChange = (value, key) => {
@@ -46,23 +49,13 @@ const LoginPage = ({ navigation }) => {
     setFormData({
       email: "",
       password: "",
+      confirmPassword: "",
     });
-  };
-
-  const navigateToRegister = () => {
-    navigation.navigate("registerScreen");
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={[s.container, { width }]}>
-        <View style={s.registerBtn}>
-          <Button
-            title="Register"
-            color="#e17055"
-            onPress={navigateToRegister}
-          />
-        </View>
         <Image
           source={Logo}
           style={{
@@ -88,9 +81,16 @@ const LoginPage = ({ navigation }) => {
             placeholder="Password"
             onChangeText={handleChange}
           />
+          <FormInput
+            name="confirmPassword"
+            iconName="ios-key"
+            label="Confirm password"
+            placeholder="Confirm Password"
+            onChangeText={handleChange}
+          />
 
           <View style={s.btnContainer}>
-            <Button title="Submit" color="#fff" onPress={handleSubmit} />
+            <Button title="Register" color="#fff" onPress={handleSubmit} />
           </View>
         </View>
       </View>
@@ -98,4 +98,4 @@ const LoginPage = ({ navigation }) => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

@@ -9,17 +9,20 @@ const { width } = Dimensions.get("screen");
 const INPUT_WIDTH = width / 1.5;
 
 const LoginInput = ({ iconName, label, placeholder, onChangeText, name }) => {
+  const [isFocused, setIsFocused] = useState(false);
   const s = styles(false);
 
   return (
     <View style={[s.container, { width: INPUT_WIDTH }]}>
       <Icon style={s.icon} name={iconName} />
       <View style={s.inputGroun}>
-        <Text style={[s.label, { opacity: 0 }]}>{label}</Text>
+        <Text style={[s.label, { opacity: isFocused ? 1 : 0 }]}>{label}</Text>
         <TextInput
           name={name}
           style={s.textInput}
           placeholder={placeholder}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           onChangeText={(value) => onChangeText(value, name)}
           secureTextEntry={name === "password" ? true : false}
         />

@@ -18,7 +18,11 @@ export const HomeStack = () => (
       name="homeScreen"
       component={HomeScreen}
     />
-    <Stack.Screen name="detailScreen" component={DetailScreen} />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="detailScreen"
+      component={DetailScreen}
+    />
   </Stack.Navigator>
 );
 
@@ -32,7 +36,11 @@ export const SearchStack = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen name="listProductScreen" component={ListProductsSreen} />
-    <Stack.Screen name="detailScreen" component={DetailScreen} />
+    <Stack.Screen
+      options={{ headerShown: false }}
+      name="detailScreen"
+      component={DetailScreen}
+    />
   </Stack.Navigator>
 );
 

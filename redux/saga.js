@@ -7,6 +7,7 @@ import {
   fetchSingleProduct,
 } from "../utils/mockFetchData";
 
+//  PRODUCS SAGA
 async function getData() {
   console.log("FROM GET DATA");
 

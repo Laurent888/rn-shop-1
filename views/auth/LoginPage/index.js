@@ -10,6 +10,10 @@ import {
   TextInput,
 } from "react-native";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+
+import firebase from "../../../services/firebase";
+import { logoutFromRedux } from "../../../utils/auth";
 
 import Logo from "../../../assets/logo.png";
 
@@ -19,6 +23,7 @@ import FormInput from "../../../components/common/FormInput";
 const { width } = Dimensions.get("screen");
 
 const LoginPage = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -41,8 +46,14 @@ const LoginPage = ({ navigation }) => {
   const handleSubmit = () => {
     validationSchema
       .validate(formData)
-      .then((valid) => console.log(valid))
+      .then((valid) => {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(formData.email, formData.password)
+          .catch((err) => console.log(err));
+      })
       .catch((err) => console.log(err.errors));
+
     setFormData({
       email: "",
       password: "",
@@ -56,6 +67,15 @@ const LoginPage = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={[s.container, { width }]}>
+        <View style={s.registerBtn}>
+          <Button
+            title="Logout"
+            color="#e17055"
+            onPress={() => {
+              firebase.auth().signOut();
+            }}
+          />
+        </View>
         <View style={s.registerBtn}>
           <Button
             title="Register"

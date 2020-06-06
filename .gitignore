@@ -14,5 +14,6 @@ web-report/
 .DS_Store
 
 apiaddress.js
+config.js
 
 data/

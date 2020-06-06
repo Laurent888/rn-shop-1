@@ -44,7 +44,7 @@ const RegisterPage = () => {
   const handleSubmit = () => {
     validationSchema
       .validate(formData)
-      .then((valid) => console.log(valid))
+      .then((valid) => console.log(valid, "****VALID"))
       .catch((err) => console.log(err.errors));
     setFormData({
       email: "",

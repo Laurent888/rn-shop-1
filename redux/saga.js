@@ -80,6 +80,7 @@ function* getSingleProductAsync(action) {
     articleColorNames: s.articleColorNames,
     rgbColors: s.rgbColors,
     sellingAttributes: s.sellingAttributes ? s.sellingAttributes : null,
+    variantSizes: s.variantSizes,
   };
 
   yield put({ type: types.GET_SINGLE_PRODUCT_SUCCESS, payload: shortData });

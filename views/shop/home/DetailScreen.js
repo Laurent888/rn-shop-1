@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -18,12 +18,14 @@ import { types } from "../../../redux/types";
 import LoadingScreen from "../../../components/common/loading";
 
 import DescriptionProductSection from "../../../components/common/DescriptionProduct";
+import ItemModal from "../../../components/ItemModal";
 
 const { width } = Dimensions.get("screen");
 
 const DetailScreen = ({ route, navigation }) => {
   const { currentProduct } = useSelector((state) => state.products);
   3;
+  const [modalIsVisible, setModalIsVisible] = useState(false);
   const y = new Animated.Value(0);
 
   const dispatch = useDispatch();
@@ -64,6 +66,13 @@ const DetailScreen = ({ route, navigation }) => {
 
   return (
     <>
+      <ItemModal
+        isVisible={modalIsVisible}
+        setIsVisible={() => setModalIsVisible(false)}
+        currentProduct={currentProduct}
+        clicked={() => {}}
+      />
+
       <TouchableOpacity
         style={{ position: "absolute", top: 25, left: 15, zIndex: 100 }}
         onPress={() => navigation.goBack()}
@@ -114,9 +123,7 @@ const DetailScreen = ({ route, navigation }) => {
 
             {/* ADD BUTTON */}
             <TouchableOpacity
-              onPress={() => {
-                console.log(currentProduct);
-              }}
+              onPress={() => setModalIsVisible(true)}
               style={{
                 width: 200,
                 alignItems: "center",

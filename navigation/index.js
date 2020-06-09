@@ -4,7 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../views/shop/home/HomeScreen";
 import DetailScreen from "../views/shop/home/DetailScreen";
 import SearchScreen from "../views/shop/search/SearchScreen";
-import ProfileScreen from "../views/shop/profile/ProfileScreen";
+import ProfileScreen from "../views/user/profile/ProfileScreen";
+import MyBagScreen from "../views/user/profile/MyBag";
 import ListProductsSreen from "../views/shop/search/listProductsScreen";
 import LoginPage from "../views/auth/LoginPage";
 import RegisterPage from "../views/auth/RegisterPage";
@@ -48,7 +49,7 @@ export const ProfileStack = () => (
   <Stack.Navigator>
     <Stack.Screen
       options={{ title: "Sign in" }}
-      name="profileScreen"
+      name="signinScreen"
       component={LoginPage}
     />
     <Stack.Screen
@@ -56,5 +57,12 @@ export const ProfileStack = () => (
       name="registerScreen"
       component={RegisterPage}
     />
+  </Stack.Navigator>
+);
+
+export const LoggedInStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="profile" component={ProfileScreen} />
+    <Stack.Screen name="mybag" component={MyBagScreen} />
   </Stack.Navigator>
 );

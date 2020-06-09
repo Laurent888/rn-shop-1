@@ -1,4 +1,4 @@
-import firebase from "../services/firebase";
+import AsyncStorage from "@react-native-community/async-storage";
 import { types } from "../redux/types";
 
 export const setLoginToRedux = (user, dispatch) => {
@@ -9,8 +9,12 @@ export const setLoginToRedux = (user, dispatch) => {
     displayName: user.displayName,
   };
   dispatch({ type: types.LOGIN, payload });
+
+  AsyncStorage.setItem("user", JSON.stringify(payload));
 };
 
 export const logoutFromRedux = (dispatch) => {
   dispatch({ type: types.LOGOUT });
+
+  AsyncStorage.removeItem("user");
 };

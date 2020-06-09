@@ -15,4 +15,5 @@ export default StyleSheet.create({
 export const colors = {
   darkColor: "#222",
   darkMedium: "#444",
+  primaryColor: "#e17055",
 };

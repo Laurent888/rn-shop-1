@@ -1,28 +1,21 @@
 import React from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
 import theme from "../../../styles/styles";
-import ProductCard from "../../common/productCard";
 
-const ListProducts = ({ id }) => {
-  const state = useSelector((state) => {
-    if (id === "men_all") {
-      return state.products.men.shoes;
-    } else if (id === "ladies_all") {
-      return state.products.women.shoes;
-    }
-  });
+export default function MyBag() {
+  const myBag = useSelector((state) => state.products.userBagProducts);
 
   return (
-    <View>
+    <View style={s.container}>
       <View style={s.header}>
         <Text style={s.headerText}>Shoes </Text>
         <Text style={s.headerText}>{id === "men_all" ? "men" : "ladies"}</Text>
       </View>
       <ScrollView>
         <View style={s.listContainer}>
-          {state.map((el, i) => (
+          {myBag.map((el, i) => (
             <ProductCard
               key={el.id}
               id={el.id}
@@ -36,11 +29,12 @@ const ListProducts = ({ id }) => {
       </ScrollView>
     </View>
   );
-};
-
-export default ListProducts;
+}
 
 const s = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   header: {
     flexDirection: "row",
     paddingVertical: 10,

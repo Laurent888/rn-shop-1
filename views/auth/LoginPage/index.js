@@ -6,8 +6,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Image,
-  Text,
-  TextInput,
 } from "react-native";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";

@@ -9,6 +9,7 @@ const INITIAL_STATE = {
     shows: [],
   },
   currentProduct: null,
+  userBagProducts: [],
 };
 
 const productReducer = (state = INITIAL_STATE, action) => {
@@ -40,6 +41,19 @@ const productReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentProduct: null,
+      };
+    case types.ADD_PRODUCT_TO_CART:
+      return {
+        ...state,
+        userBagProducts: [...state.userBagProducts, action.payload],
+      };
+
+    case types.REMOVE_PRODUCT_TO_CART:
+      return {
+        ...state,
+        userBagProducts: state.userBagProducts.filter(
+          (i) => i.id !== action.id
+        ),
       };
     default:
       return state;

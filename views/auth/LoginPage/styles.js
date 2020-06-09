@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../../styles/styles";
 
 export default StyleSheet.create({
   container: {
@@ -16,7 +17,7 @@ export default StyleSheet.create({
     marginTop: 20,
     paddingVertical: 5,
     paddingHorizontal: 40,
-    backgroundColor: "#e17055",
+    backgroundColor: colors.primaryColor,
   },
   registerBtn: {
     alignSelf: "flex-end",

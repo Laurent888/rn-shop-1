@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
   Image,
   Dimensions,
   Animated,
@@ -13,9 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 import IonIcon from "react-native-vector-icons/Ionicons";
 // import Animated from "react-native-reanimated";
 
+import { colors } from "../../../styles/styles";
 import { types } from "../../../redux/types";
-import ColorBadge from "../../../components/common/colorBadge";
+
 import LoadingScreen from "../../../components/common/loading";
+
+import DescriptionProductSection from "../../../components/common/DescriptionProduct";
 
 const { width } = Dimensions.get("screen");
 
@@ -58,16 +60,7 @@ const DetailScreen = ({ route, navigation }) => {
     extrapolateLeft: "clamp",
   });
 
-  const {
-    brand,
-    id,
-    image,
-    name,
-    price,
-    sellingAttributes,
-    articleColorNames,
-    rgbColors,
-  } = currentProduct;
+  const { image } = currentProduct;
 
   return (
     <>
@@ -116,40 +109,23 @@ const DetailScreen = ({ route, navigation }) => {
             }}
           />
           <View style={s.descContainer}>
-            <Text style={s.header}>Description</Text>
-            <View style={s.rowDesc}>
-              <Text style={s.label}>Name: </Text>
-              <Text>{name}</Text>
-            </View>
-            <View style={s.rowDesc}>
-              <Text style={s.label}>Price: </Text>
-              <Text>{price}</Text>
-            </View>
-            <View style={s.rowDesc}>
-              <Text style={s.label}>Category: </Text>
-              <Text>{brand}</Text>
-            </View>
-            <View style={[s.rowDesc, s.rowColors]}>
-              <Text style={s.label}>Available colors: </Text>
-              <View style={s.colorsList}>
-                {rgbColors.map((el, i) => (
-                  <ColorBadge key={i} color={el} />
-                ))}
-              </View>
-            </View>
-            {sellingAttributes && (
-              <View style={s.rowDesc}>
-                <Text
-                  style={{
-                    fontWeight: "700",
-                    textTransform: "uppercase",
-                    fontSize: 20,
-                  }}
-                >
-                  {sellingAttributes[0]}
-                </Text>
-              </View>
-            )}
+            {/* DESCRIPTION SECTION */}
+            <DescriptionProductSection currentProduct={currentProduct} />
+
+            {/* ADD BUTTON */}
+            <TouchableOpacity
+              onPress={() => {
+                console.log(currentProduct);
+              }}
+              style={{
+                width: 200,
+                alignItems: "center",
+                alignSelf: "center",
+                marginTop: 20,
+              }}
+            >
+              <Text style={s.addProductBtn}>Add to Bag</Text>
+            </TouchableOpacity>
           </View>
         </Animated.ScrollView>
       </View>
@@ -178,24 +154,13 @@ const s = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 15,
   },
-  header: {
-    fontWeight: "600",
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  rowDesc: {
-    flexDirection: "row",
-    paddingVertical: 8,
-  },
-  rowColors: {
-    alignItems: "center",
-  },
-  label: {
-    fontWeight: "700",
-    textTransform: "uppercase",
-    width: 180,
-  },
-  colorsList: {
-    flexDirection: "row",
+
+  addProductBtn: {
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    backgroundColor: colors.primaryColor,
+    color: "#fff",
+    fontWeight: "500",
+    fontSize: 18,
   },
 });
